@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.6
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Waktu pembuatan: 04 Jul 2021 pada 04.16
--- Versi server: 8.0.19
--- Versi PHP: 7.3.8
+-- Host: localhost:3306
+-- Generation Time: Sep 08, 2022 at 10:03 AM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,47 +25,48 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Table structure for table `produk`
 --
 
 CREATE TABLE `produk` (
-  `id_produk` int NOT NULL,
-  `nama_produk` varchar(50) NOT NULL,
-  `harga` int NOT NULL,
-  `qty` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+  `id_produk` int(11) NOT NULL,
+  `judul_berita` varchar(50) NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `gambar` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `produk`
+-- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga`, `qty`) VALUES
-(11, 'Biskuit Tango', 13000, 1),
-(12, 'Indomie', 2000, 5),
-(13, 'kerupuk', 7000, 2),
-(14, 'baygon jeruk', 24000, 1),
-(15, 'pepsodent', 12000, 1),
-(17, 'tas kulit buaya', 250000, 1);
+INSERT INTO `produk` (`id_produk`, `judul_berita`, `deskripsi`, `gambar`) VALUES
+(11, 'GAME ITU SERU', 'GAME GAME ', 0x576861747341707020496d61676520323032322d30392d30342061742031382e33362e3531202831292e6a706567),
+(15, 'PALEPALE', 'HYAHAY', 0x576861747341707020496d61676520323032322d30392d30342061742031382e33372e3531202831292e6a706567),
+(21, 'GAME ITU BERBAHAYA', 'yayaya', 0x576861747341707020496d61676520323032322d30392d30342061742031382e34382e34342e6a706567),
+(22, 'PPAA', 'YYY', 0x576861747341707020496d61676520323032322d30392d30342061742031382e33372e35302e6a706567),
+(23, 'AFA', 'FAFA', 0x576861747341707020496d61676520323032322d30392d30342061742031382e35302e3232202831292e6a706567),
+(24, 'asada', 'dadada', 0x4172726179),
+(25, 'asdasd', 'asd', 0x4172726179);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `produk`
+-- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `produk`
+-- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
