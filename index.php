@@ -1,5 +1,9 @@
 <?php
 require_once 'connect_db.php';
+session_start();
+    if (!isset($_SESSION['username'])){
+        header("Location: login.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -14,44 +18,31 @@ require_once 'connect_db.php';
     <div class="card">
       <div class="card-body">
         <h5 class="date">Tanggal: <?= date("d/m/Y H:i a") ?></h5>
-        <form method="post" action="add.php" enctype="multipart/form-data">
-        <p>TAMBAH BERITA</p>
-          <div class="row">
-            
-            <div class="form-group col-md-3">
-              <input class="form-control" type="text" name="judul_berita" placeholder="Judul Berita" required>
-            </div>
-            <div class="form-group col-md-5">
-              <input class="form-control" type="text" name="deskripsi" placeholder="Deskripsi" required>
-            </div>
-            <div class="form-group col-md-3">
-              <input class="form-control" type="file" name="gambar" placeholder="Gambar">
-            </div>
-            <div class="form-group col-md-2">
-              <button type="submit" name="submit" class="btn btn-primary">Tambah Data</button>
-            </div>
-          </div>
-        </form>
+        <button><a href="tambah/v_add.php">Tambah BERITA</a></button>
+        <button><a href="tambah/v_add_kategori.php">Tambah Kategori</a></button>
+        <button ><a href="logout.php" onclick="return confirm('YAKIN ANDA MAU KELUAR ENTEH?')" >Logout</a></button>
         <table class="table">
           <tr>
             <th width="10%">No.</th>
             <th width="20%">Gambar</th>
-            <th width="30%">Judul Berita</th>
+            <th width="20%">Judul Berita</th>
             <th width="30%">Deskripsi Berita</th>
+            <th width="10%">Kategori</th>
             
-            <th width="20%" colspan="2">Aksi</th>
+            <th width="10%" colspan="2">Aksi</th>
           </tr>
           <?php
-          $q           = $conn->query("SELECT * FROM produk");
+          $q           = $conn->query("SELECT * FROM produk INNER JOIN kategori ON kategori.id_kategori = produk.id_kategori");
+          
           $no          = 1;
           while ($dt = $q->fetch_assoc()) :
           ?>
           <tr>  
             <td><?= $no++ ?></td>
-            <td><?= $dt['gambar'] ?></td>
+            <td><img src="./gambar/<?= $dt['gambar'] ?>"style="width:25%;"></td>
             <td><?= $dt['judul_berita'] ?></td>
             <td><?= $dt['deskripsi'] ?></td>
-            
+            <td><?= $dt['nama_kategori'] ?></td>
 
             <td><a href="update.php?id=<?= $dt['id_produk'] ?>">Ubah</a></td>
             <td><a href="delete.php?id=<?= $dt['id_produk'] ?>" onclick="return confirm('Anda yakin akan menghapus data ini?')">Hapus</a></td>

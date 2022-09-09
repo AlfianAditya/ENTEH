@@ -1,7 +1,7 @@
 <?php
 
 require_once 'connect_db.php';
-
+$kategori  = $conn->query("SELECT * FROM  kategori");
 // cek id
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
@@ -37,9 +37,14 @@ if (isset($_GET['id'])) {
                 <label>Deskripsi</label>
                 <input class="form-control" type="text" name="deskripsi" placeholder="Deskripsi" value="<?= $dt['deskripsi'] ?>">
               </div>
-
+              <select name="id_kategori" class="form-control form-control" id="defaultSelect">
+                    <option value="">PILIH</option>
+                <?php while ($key = mysqli_fetch_array($kategori)) { ?>
+                    <option value="<?= $key['id_kategori']; ?>"><?= $key['nama_kategori']; ?></option>
+                <?php } ?>
+              </select>
               <div class="form-group col-md-8">
-                <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" name="submit" class="btn btn-primary" onclick="return confirm('Anda yakin akan mengupdate data ini?')">Simpan</button>
               </div>
             </form>
           </div>

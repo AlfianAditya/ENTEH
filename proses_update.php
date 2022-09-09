@@ -6,8 +6,9 @@ if (isset($_POST['submit'])) {
   $j_berita = $_POST['judul_berita'];
   $deskripsi = $_POST['deskripsi'];
   $gambar = $_POST['gambar'];
+  $kategori = $_POST['kategori'];
   
-  $q = $conn->query("UPDATE produk SET judul_berita = '$j_berita', deskripsi = '$deskripsi', gambar = '$gambar' WHERE id_produk = '$id'");
+  $q = $conn->query("UPDATE produk SET judul_berita = '$j_berita', deskripsi = '$deskripsi',kategori = '$kategori', gambar = '$gambar' WHERE id_produk = '$id'");
 
   if ($q) {
     echo "<script>alert('Data Berita berhasil diubah'); window.location.href='index.php'</script>";
