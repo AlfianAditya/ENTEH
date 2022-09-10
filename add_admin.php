@@ -1,32 +1,43 @@
 <?php 
  
- require_once 'connect_db.php';
- 
+require_once 'connect_db.php';
+
+
 error_reporting(0);
  
 session_start();
- 
-if (isset($_SESSION['username'])) {
-    header("Location: index.php");
+$session=$_SESSION['username'];
+$q = $conn->query("SELECT * FROM user WHERE  username = '$session'");
+// if (isset($_SESSION['username'])) {
+//     header("Location: index.php");
+// }
+// var_dump($q->fetch_assoc()['level']=='admin');
+// die;
+foreach($q as $qt){
+    if($qt['level']=='admin'){
+        header("Location: index.php");
+    }
+    if($qt['level']=='user'){
+        header("Location: dashboard.php");
+    }
 }
- 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
-    $cpassword = md5($_POST['cpassword']);
+    $level = $_POST['level'];
  
-    if ($password == $cpassword) {
+    if ($password) {
         $sql = "SELECT * FROM user WHERE username='$username'";
         $result = mysqli_query($conn, $sql);
         if (!$result->num_rows > 0) {
-            $sql = "INSERT INTO user (username, password)
-                    VALUES ('$username','$password')";
+            $sql = "INSERT INTO user (username, password, level)
+                    VALUES ('$username','$password','$level')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
-                echo "<script>alert('Selamat, registrasi berhasil!'); window.location.href='login.php'</script>";
+                echo "<script>alert('Akun berhasil ditambahkan!'); window.location.href='index.php'</script>";
                 $username = "";
                 $_POST['password'] = "";
-                $_POST['cpassword'] = "";
+                $_POST['level'] = "";
                 
             } else {
                 echo "<script>alert('Woops! Terjadi kesalahan.')</script>";
@@ -49,14 +60,14 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
  
-    <title> Register</title>
+    <title> ADD</title>
 </head>
 <body>
     <div style="width:100%;padding-top: 2%;" class="container">
         <div style="margin:auto;width:80%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 10px;">
             <form action="" method="POST" class="login-email" style="align-items: center;font-family:system-ui;display: flex;margin: 0% 7%;flex-direction: column;">
                 <br><br>
-                <h1>REGISTER USER</h1>
+                <h1>ADD USER</h1>
                 <div class="row" style=width:80% >
                     <br><br>
                     <div class="input-group"  style="display:flex;flex-direction: column;">
@@ -72,9 +83,15 @@ if (isset($_POST['submit'])) {
                     </div>
                     <br><br>
                     <div class="input-group" style="display:flex;flex-direction: column;">
-                        <label for=""> CONFIRM PASSWORD</label>
+                        <label for=""> LEVEL</label>
                         <br>    
-                        <input style="height: 45px;border-radius: 10px;border: solid 1px black;" type="password" name="cpassword" value="" required>
+                        <select name="level" id="">
+                            <option value="">PILIH</option>
+                            <option value="superadmin">Super Admin</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                        
                     </div>
                     <br>
                     <div style="display:flex;flex-direction:row;justify-content: flex-end;">
@@ -82,11 +99,10 @@ if (isset($_POST['submit'])) {
                             <button style="padding: 0px 35px;height: 40px;background-color: red;border-radius: 10px;border: none;"class="btn btn-primary"><a href="login.php" style="color:black;text-decoration:none;">back</a></button>
                         </div>
                         <div class="input-group" >
-                            <button name="submit" class="btn" style="padding: 0px 35px;height: 40px;background-color: lime;border-radius: 10px;border: none;">Register</button>
+                            <button name="submit" class="btn" style="padding: 0px 35px;height: 40px;background-color: lime;border-radius: 10px;border: none;">Tambah</button>
                         </div>
                     </div>
                 </div>
-                <p class="login-register-text">Anda sudah punya akun? <a href="login.php">Login </a></p>
             </form>
             <br>
             <br>

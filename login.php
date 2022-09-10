@@ -19,7 +19,8 @@ if (isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $_SESSION['username'] = $row['username'];
-        header("Location: index.php");
+        echo "<script>alert('Anda Berhasil Login'); window.location.href='index.php'</script>";
+
     } else {
         echo "<script>alert('username atau password Anda salah. Silahkan coba lagi!')</script>";
     }
@@ -32,32 +33,50 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- 
+
     <link rel="stylesheet" type="text/css" href="style.css">
  
-    <title>Niagahoster Tutorial</title>
+    <title>LOGIN</title>
 </head>
 <body>
-    <div class="alert alert-warning" role="alert">
+    <div class=" alert-warning" role="alert">
         <?php echo $_SESSION['error']?>
     </div>
  
-    <div class="container">
-        <form action="" method="POST" class="login-email" style="width:100%;display:flex;flex-direction:column;align-items: center;">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Login</p>
-            <div class="input-group">
-                <input type="text" placeholder="Username" name="username" value="" required>
-            </div>
-            <div class="input-group">
-                <input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
-            </div>
-            <div class="input-group">
-                <button name="submit" class="btn">Login</button>
-            </div>
-            <p class="login-register-text">Anda belum punya akun? <a href="register.php">Register</a></p>
-        </form>
+    <div style="width:100%;padding-top: 2%;" class="container">
+        <div style="margin:auto;width:80%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 10px;">
+            <form action="" method="POST" class="login-email" style="align-items: center;font-family:system-ui;display: flex;margin: 0% 7%;flex-direction: column;">
+                <br><br>
+                <h1>LOGIN USER</h1>
+                    <div class="row" style=width:80% >
+                    <br>
+                    <div class="input-group" style="display:flex;flex-direction: column;">
+                        <label for=""> LOGIN</label>
+                        <br>
+                        <input style="height: 45px;border-radius: 10px;border: solid 1px black;"type="text"  name="username" value="" required>
+                    </div>
+                    <br><br>
+                    <div class="input-group" style="display:flex;flex-direction: column;">
+                        <label for=""> PASSWORD</label>
+                        <br>
+                        <input style="height: 45px;border-radius: 10px;border: solid 1px black;" type="password"  name="password" value="<?php echo $_POST['password']; ?>" required>
+                    </div>
+                    <br>
+                    <div style="display:flex;flex-direction:row;justify-content: flex-end;">
+                        <div class="form-group col-md-2" >
+                            <button style="padding: 0px 35px;height: 40px;background-color: red;border-radius: 10px;border: none;"class="btn btn-primary"><a href="dashboard.php" style="color:black;text-decoration:none;">back</a></button>
+                        </div>
+                        <div class="input-group" >
+                            <button name="submit" class="btn" style="padding: 0px 35px;height: 40px;background-color: lime;border-radius: 10px;border: none;">Login</button>
+                        </div>
+
+                    </div>
+
+                    <br>    
+                    <p class="login-register-text">Anda belum punya akun? <a href="register.php">Register</a></p>
+                </div>
+            </form>
+            <br><br>
     </div>
 </body>
 </html>

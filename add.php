@@ -22,14 +22,15 @@ if (isset($_POST['submit'])) {
                     // jalankan query INSERT untuk menambah data ke database pastikan sesuai urutan (id tidak perlu karena dibikin otomatis)
                     $j_b   = $_POST['judul_berita'];
                     $cej = $conn->query("SELECT judul_berita FROM produk WHERE judul_berita='$_POST[judul_berita]'");
+                    
                     // $cej   = mysqli_num_rows (mysqli_query(""));
                     
                         if(mysqli_num_rows($cej) > 0) {
                             // $_SESSION['pesan'] = "Oops! Duplikat input data ...";
-                            echo "<script>alert('DATA SUDAH ADA'); window.location.href='tambah/v_add.php'</script>";
+                            echo "<script>alert('Berita Sudah Ada'); window.location.href='tambah/v_add.php'</script>";
                             // header("location:tambah/v_add.php");
-
                         }
+                        
                     $q = $conn->query("INSERT INTO produk (judul_berita, deskripsi, gambar, id_kategori  ) VALUES ( '$j_berita', '$deskripsi','$nama_gambar_baru', '$id_kategori' )");
 
                     // print_r($q);
@@ -38,28 +39,28 @@ if (isset($_POST['submit'])) {
                     // $result = mysqli_query($koneksi, $query);
                     // periska query apakah ada error
                     if(!$q){
-                      echo "<script>alert('Data produk gagal ditambahkan'); window.location.href='tambah/v_add.php'</script>";
+                      echo "<script>alert('Berita gagal ditambahkan'); window.location.href='tambah/v_add.php'</script>";
                     } else {
                       //tampil alert dan akan redirect ke halaman index.php
                       //silahkan ganti index.php sesuai halaman yang akan dituju
                       // echo "<script>alert('Data berhasil ditambah.');window.location='index.php';</script>";
-                      echo "<script>alert('Data produk berhasil ditambahkan'); window.location.href='index.php'</script>";
+                      echo "<script>alert('Berita berhasil ditambahkan'); window.location.href='index.php'</script>";
                     }
   
               } else {     
                //jika file ekstensi tidak jpg dan png maka alert ini yang tampil
-                  echo "<script>alert('Ekstensi gambar yang boleh hanya jpg atau png.');window.location='tambah/.v_add.php';</script>";
+                  echo "<script>alert('Ekstensi gambar yang boleh hanya jpg, jpeg atau png.');window.location='tambah/.v_add.php';</script>";
               }
   } else {
     $q = $conn->query("INSERT INTO produk (judul_berita, deskripsi, gambar, id_kategori  ) VALUES ( '$j_berita', '$deskripsi','$nama_gambar_baru', '$id_kategori' )");
                     
                     // periska query apakah ada error
                     if(!$q){
-                      echo "<script>alert('Data produk gagal ditambahkan'); window.location.href='index.php'</script>";
+                      echo "<script>alert('Berita gagal ditambahkan'); window.location.href='index.php'</script>";
                     } else {
                       //tampil alert dan akan redirect ke halaman index.php
                       //silahkan ganti index.php sesuai halaman yang akan dituju
-                      echo "<script>alert('Data produk berhasil ditambahkan'); window.location.href='index.php'</script>";
+                      echo "<script>alert('Berita berhasil ditambahkan'); window.location.href='index.php'</script>";
                     }
   }
 //   $q = $conn->query("INSERT INTO produk (judul_berita, deskripsi, id_kategori ) VALUES (' '$j_berita', '$deskripsi', '$id_kategori')");
